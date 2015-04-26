@@ -28,6 +28,7 @@ def default_page(request):
         task_dict['name'] = task.name
         task_dict['next'] = task.next
         task_dict['is_active'] = task.is_active
+        task_dict['show_next'] = task.is_active and (task.next is not None)
         task_dict['start_here'] = task.start_here
         tasks.append(task_dict)
     context = {'tasks': tasks}
