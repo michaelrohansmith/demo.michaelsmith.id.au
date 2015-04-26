@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="article">
+        <div class="article_title">{{ article.title }}</div>
+            <div class="small_toolbar">
+                {% for tag in article.tags %}
+                    <a href="/blog/tag/{{ tag.id }}/">{{ tag.title }}</a> &nbsp;
+                {% endfor %}
+            </div>
+        {% if user.is_superuser %}
+            <div class="small_toolbar">
+                <a title="Delete" href="/blog/article/{{ article.id}}/delete/">&#10005;</a>
+                <a title="Edit" href="/blog/article/{{ article.id}}/update/">&#9998;</a>
+            </div>
+        {% endif %}
+        <div class="article_item">
+            {% for section in article.sections %}
+                <p>{{ section.text|safe }}</p>
+                {% if user.is_superuser %}
+                    <div class="small_toolbar">
+                        <a title="Delete" href="/blog/articletext/{{ section.id}}/delete/">&#10005;</a>
+                        <a title="Edit" href="/blog/articletext/{{ section.id}}/update/">&#9998;</a>
+                        <a title="Details" href="/blog/{{ section.id}}/">&#9993</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="small_toolbar">
+                <a title="New" href="/blog/article/{{article.id}}/articletext/add/">&#43;</a>
+            </div>
+        </div>
+    </div>
+    {% if user.is_superuser %}
+        <div title="New" class="small_toolbar"><a href="/blog/article/add/">&#43;</a></div>
+    {% endif %}
+{% endblock %}

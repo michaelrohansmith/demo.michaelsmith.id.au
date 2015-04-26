@@ -1,0 +1,14 @@
+{% extends "demo/base.html" %}
+{% block content %}
+<h1>Add Task</h1>
+
+<form action="." method="POST">
+  {% csrf_token %}
+  <ul>
+    {{ form.as_ul }}
+  </ul>
+  <input id="save_article" type="submit" value="Save" />
+</form>
+
+<a href="{% url "list" %}">back to list</a>
+{% endblock %}

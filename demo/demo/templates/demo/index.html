@@ -1,0 +1,14 @@
+{% extends "demo/base.html" %}
+{% block content %}
+    <table>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.status }}</td>
+            <td><a href="/task/{{ task.id}}/update/">{{ task.name }}</a></td>
+            <td><a href="/task/{{ task.id}}/delete/">Delete</a></td>
+            <td><a href="/task/{{ task.id}}/delete/">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    <a href="/task/add/">Add Task</a>
+{% endblock %}
