@@ -11,6 +11,13 @@ from demo import models, forms
 
 # Views for demo application
 
+def get_status_value(symbol):
+    if symbol == u'I':
+        return 'Inactive'
+    if symbol == u'A':
+        return 'Active'
+    return None
+
 # The main page
 def default_page(request):
     tasks = list()
@@ -18,7 +25,7 @@ def default_page(request):
         task_dict = dict()
         task_dict['name'] = task.name
         task_dict['next'] = task.next
-        task_dict['status'] = task.status
+        task_dict['status'] = models.Task.get_status_display(task)
         task_dict['start_here'] = task.start_here
         tasks.append(task_dict)
     context = {'tasks': tasks}

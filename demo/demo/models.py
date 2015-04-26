@@ -4,10 +4,16 @@ from django.db import models
 class Task(models.Model):
 
     STATUS_CHOICES = (
-        ('A', 'Active'),
-        ('I', 'Inactive'),
+        (u'A', 'Active'),
+        (u'I', 'Inactive'),
     )
     
+    def get_status_value(self, symbol):
+        for choice in self.STATUS_CHOICES:
+            if symbol == choice[0]:
+                return choice[1]
+        return None
+        
     name = models.CharField(max_length=20)
     next = models.ForeignKey('self', null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Inactive')
