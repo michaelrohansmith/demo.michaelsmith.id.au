@@ -12,8 +12,9 @@
         <tr>
             <td>{{ task.start_here }}</td>
             <td>{{ task.is_active }}</td>
-            <td><a href="/task/{{ task.id}}/update/">{{ task.name }}</a></td>
+            <td>{{ task.name }}</td>
             <td>{{ task.next.name }}</td>
+            <td>[<a href="/task/{{ task.id}}/update/">Update</a>]</td>
             <td>[<a href="/task/{{ task.id}}/delete/">Delete</a>]</td>
         </tr>
     {% endfor %}
