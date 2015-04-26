@@ -46,13 +46,11 @@ def task_add(request):
             task = models.Task()
             task.name = form.cleaned_data['name']
             if 'next' in form.cleaned_data and len(form.cleaned_data['next']) > 0:
-                print 'next: [%s]' % type(form.cleaned_data['next'][0])
                 task.next = form.cleaned_data['next'][0]
             else:
                 task.next = None
             task.is_active = False
             task.start_here = False
-            print form.cleaned_data
             if 'is_active' in form.cleaned_data:
                 task.is_active = form.cleaned_data['is_active']
             if 'start_here' in form.cleaned_data:
@@ -66,9 +64,7 @@ def task_add(request):
 
 # Go to the next task
 def task_next(request, pk):
-    print 'task_add: %s' % pk
     task = models.Task.objects.get(pk=pk)
-    print 'task_add: %s' % task
     task.is_active = False
     task.save()
     return redirect('/task/%s/active/' % task.next.id)
