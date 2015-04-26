@@ -55,9 +55,9 @@ def task_add(request):
             task.start_here = False
             print form.cleaned_data
             if 'is_active' in form.cleaned_data:
-                task.is_active = True
+                task.is_active = form.cleaned_data['is_active']
             if 'start_here' in form.cleaned_data:
-                task.start_here = True
+                task.start_here = form.cleaned_data['start_here']
             task.save()
             return HttpResponseRedirect('/')
     # if a GET (or any other method) we'll create a blank form
