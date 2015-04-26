@@ -75,7 +75,7 @@ class TaskDetail(generic.DetailView):
 # Update Task
 class TaskUpdate(UpdateView):
     model = models.Task
-    fields = ['name', 'next', 'status', 'start_here']
+    fields = ['name', 'next', 'is_active', 'start_here']
 
 # Delete Task item
 class TaskDelete(DeleteView):
