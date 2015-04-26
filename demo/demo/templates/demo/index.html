@@ -16,6 +16,9 @@
             <td>{{ task.next.name }}</td>
             <td>[<a href="/task/{{ task.id}}/update/">Edit</a>]</td>
             <td>[<a href="/task/{{ task.id}}/delete/">Delete</a>]</td>
+            {% if task.is_active %}
+                <td>[<a href="/task/{{ task.id}}/next/">Go to next task</a>]</td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

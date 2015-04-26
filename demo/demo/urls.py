@@ -12,5 +12,7 @@ urlpatterns = patterns('',
     url(r'task/add/$', views.task_add, name='task_add'),
     url(r'task/(?P<pk>\d+)/update/$', views.TaskUpdate.as_view(success_url='/'), name='task_update'),
     url(r'task/(?P<pk>\d+)/delete/$', views.TaskDelete.as_view(), name='task_delete'),
+    url(r'task/(?P<pk>\d+)/next/$', views.task_next, name='task_next'),
+    url(r'task/(?P<pk>\d+)/active/$', views.task_active, name='task_active'),
     url(r'', 'demo.views.default_page', name='list'),
 )

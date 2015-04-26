@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.views import generic
@@ -32,10 +33,7 @@ def default_page(request):
     context = {'tasks': tasks}
     return render(request, 'demo/index.html', context)
 
-#
-# Manage Tasks
-#
-# Create a block of text in an task
+# Create a task
 def task_add(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -65,6 +63,26 @@ def task_add(request):
         form = forms.TaskForm()
         return render(request, 'demo/task_form.html', {'form': form})
 
+# Go to the next task
+def task_next(request, pk):
+    print 'task_add: %s' % pk
+    task = models.Task.objects.get(pk=pk)
+    print 'task_add: %s' % task
+    task.is_active = False
+    task.save()
+    return redirect('/task/%s/active/' % task.next.id)
+    
+# Make a task active
+# This is a horrible, horrible hack for which I apologise. I
+# wanted to modify the records for current and next task inside the task_next view
+# but only the current task record was saved. I don't know why so I am using two redirects
+# for now
+def task_active(request, pk):
+    task = models.Task.objects.get(pk=pk)
+    task.is_active = True
+    task.save()
+    return redirect('/')
+    
 # Detail for Task
 class TaskDetail(generic.DetailView):
     model = models.Task
