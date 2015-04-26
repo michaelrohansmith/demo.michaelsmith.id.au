@@ -1,11 +1,20 @@
 {% extends "demo/base.html" %}
 {% block content %}
     <table>
+        <tr>
+            <td><b>Starting point</b></td>
+            <td><b>Is Active</b></td>
+            <td><b>Name</b></a></td>
+            <td><b>Next Task</b></td>
+            <td><b>Actions</b></td>
+        </tr>
     {% for task in tasks %}
         <tr>
-            <td>{{ task.status }}</td>
+            <td>{{ task.start_here }}</td>
+            <td>{{ task.is_active }}</td>
             <td><a href="/task/{{ task.id}}/update/">{{ task.name }}</a></td>
-            <td><a href="/task/{{ task.id}}/delete/">Delete</a></td>
+            <td>{{ task.next.name }}</td>
+            <td>[<a href="/task/{{ task.id}}/delete/">Delete</a>]</td>
         </tr>
     {% endfor %}
     </table>

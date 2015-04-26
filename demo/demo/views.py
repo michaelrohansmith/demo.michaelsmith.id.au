@@ -46,7 +46,7 @@ def task_add(request):
             # process the data in form.cleaned_data as required
             task = models.Task()
             task.name = form.cleaned_data['name']
-            if 'next' in form.cleaned_data:
+            if 'next' in form.cleaned_data and len(form.cleaned_data['next']) > 0:
                 print 'next: [%s]' % type(form.cleaned_data['next'][0])
                 task.next = form.cleaned_data['next'][0]
             else:
@@ -60,9 +60,6 @@ def task_add(request):
                 task.start_here = True
             task.save()
             return HttpResponseRedirect('/')
-        else:
-            form = forms.TaskForm()
-            return render(request, 'demo/task_form.html', {'form': form})
     # if a GET (or any other method) we'll create a blank form
     else:
         form = forms.TaskForm()
