@@ -9,4 +9,4 @@ class Task(models.Model):
     start_here = models.BooleanField(default=False)
     
     def __unicode__(self):
-        return '%s -> %s' % (self.name, self.next.name)
+        return '%s' % (self.name)

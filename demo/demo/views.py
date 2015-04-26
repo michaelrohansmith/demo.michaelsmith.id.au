@@ -47,7 +47,8 @@ def task_add(request):
             task = models.Task()
             task.name = form.cleaned_data['name']
             if 'next' in form.cleaned_data:
-                task.next = form.cleaned_data['next']
+                print 'next: [%s]' % type(form.cleaned_data['next'][0])
+                task.next = form.cleaned_data['next'][0]
             else:
                 task.next = None
             task.is_active = False
