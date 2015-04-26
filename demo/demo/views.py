@@ -23,6 +23,7 @@ def default_page(request):
     tasks = list()
     for task in models.Task.objects.all():
         task_dict = dict()
+        task_dict['id'] = task.id
         task_dict['name'] = task.name
         task_dict['next'] = task.next
         task_dict['status'] = models.Task.get_status_display(task)
