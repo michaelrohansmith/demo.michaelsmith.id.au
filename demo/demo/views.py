@@ -26,7 +26,7 @@ def default_page(request):
         task_dict['id'] = task.id
         task_dict['name'] = task.name
         task_dict['next'] = task.next
-        task_dict['status'] = models.Task.get_status_display(task)
+        task_dict['is_active'] = task.is_active
         task_dict['start_here'] = task.start_here
         tasks.append(task_dict)
     context = {'tasks': tasks}
@@ -37,14 +37,12 @@ def default_page(request):
 #
 # Create a block of text in an task
 def task_add(request):
-    print 'task_add: 1'
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = forms.TaskForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            print 'task_add: 2'
             # process the data in form.cleaned_data as required
             task = models.Task()
             task.name = form.cleaned_data['name']
@@ -52,10 +50,18 @@ def task_add(request):
                 task.next = form.cleaned_data['next']
             else:
                 task.next = None
-            task.status = form.cleaned_data['status']
-            task.start_here = form.cleaned_data['start_here']
+            task.is_active = False
+            task.start_here = False
+            print form.cleaned_data
+            if 'is_active' in form.cleaned_data:
+                task.is_active = True
+            if 'start_here' in form.cleaned_data:
+                task.start_here = True
             task.save()
             return HttpResponseRedirect('/')
+        else:
+            form = forms.TaskForm()
+            return render(request, 'demo/task_form.html', {'form': form})
     # if a GET (or any other method) we'll create a blank form
     else:
         form = forms.TaskForm()
